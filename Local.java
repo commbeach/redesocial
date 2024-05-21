@@ -1,4 +1,5 @@
-public class Local{
-  String cidade;
-  Estado estado;
+public class Local {
+    String cidade;
+    Estado estado;
+    
 }

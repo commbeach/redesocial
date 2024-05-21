@@ -20,9 +20,9 @@ public class Main {
             if (op == 2) {
                 io.cadEmpresa(s);
             }
-            //if (op == 3) {
-                //io.login(s);
-            //}
+            if (op == 3) {
+                io.login(s);
+            }
 
             op = io.menu1();
         }

@@ -79,6 +79,27 @@ public class Entrada {
         return op;
     }
 
+    public int menu2(){
+
+        String msg = "*********************\n" +
+        "Escolha uma opção:\n" +
+        "1) Seguir usuario.\n" +
+        "2) Fazer postagem.\n" +
+        "3) Exibir feed.\n" +
+        "0) Sair.\n";
+
+        int op = this.lerInteiro(msg);
+
+        while (op < 0 || op > 3) {
+            System.out.println("Opção inválida. Tente novamente: ");
+            op = this.lerInteiro(msg);
+        }
+
+        return op;
+
+
+    }
+
     /***************************************************/
 
     /**
@@ -117,6 +138,39 @@ public class Entrada {
         Empresa e = new Empresa(login,nome,senha,cnpj);
         s.novaEmpresa(e);
 
+    }
+
+    public void login(Sistema s){
+        String login = this.lerLinha("Login: ");
+        if(s.buscarUsuario(login)!=null){
+            String senha = this.lerLinha("Senha: ");
+            Usuario user=s.buscarUsuario(login);
+            if(user.senha.equals(senha)){
+                System.out.println("Bem vindo(a), "+user.nome+"!");
+                int op=this.menu2();
+                while(op!=0){
+                    if(op==1){
+                        s.listarUsuarios();
+                        //op=this.menu2();
+                    }
+                    if(op==2){
+                        System.out.println();
+                        op=this.menu2();
+                    }
+                    if(op==3){
+                        System.out.println();
+                        op=this.menu2();
+                    }
+                }
+            }
+            else{
+                System.out.println("SENHA INCORRETA");
+            }
+        }
+        else{
+            System.out.println("USUARIO NAO ENCONTRADO");
+            this.login(s);
+        }
     }
 
 }

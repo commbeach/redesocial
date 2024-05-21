@@ -25,4 +25,21 @@ public class Sistema{
   public void novaEmpresa(Empresa e){
     empresas.add(e);
   }
+
+  public void listarUsuarios(){
+    for(Pessoa p : pessoas){
+      System.out.println("*************");
+      System.out.println(p.login);
+      System.out.println(p.nome);
+      System.out.println(p.bio);
+    }
+
+    for(Empresa e : empresas){
+      System.out.println("*************");
+      System.out.println(e.login);
+      System.out.println(e.nome);
+      System.out.println(e.area);
+    }
+  }
+  
 }
