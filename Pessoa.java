@@ -11,4 +11,8 @@ public class Pessoa extends Usuario{
     this.nasc=datanasc;
     System.out.println("nova pessoa criada");
   }
+
+  public String toString(){
+    return this.nome+" ("+this.login+" - "+this.cpf+")";
+  }
 }

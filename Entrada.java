@@ -140,25 +140,51 @@ public class Entrada {
 
     }
 
+    public void cadPostagem(Sistema s,Usuario u){
+        String senha=lerLinha("Digite sua senha: ");
+        String imagem=lerLinha("Digite arquivo da foto: ");
+        String legenda=lerLinha("Digite legenda: ");
+        int dia=lerInteiro("Digite dia de hoje: ");
+        int mes=lerInteiro("Digite mes de hoje: ");
+        int ano=lerInteiro("Digite ano de hoje: ");
+
+        Data hoje=new Data(dia,mes,ano);
+
+        u.postar(imagem,legenda,hoje,senha);
+    }
+
     public void login(Sistema s){
         String login = this.lerLinha("Login: ");
         if(s.buscarUsuario(login)!=null){
             String senha = this.lerLinha("Senha: ");
-            Usuario user=s.buscarUsuario(login);
-            if(user.senha.equals(senha)){
-                System.out.println("Bem vindo(a), "+user.nome+"!");
+            Usuario logado=s.buscarUsuario(login);
+            if(logado.validarAcesso(senha)){
+                System.out.println("Bem vindo(a), "+logado.nome+"!");
                 int op=this.menu2();
                 while(op!=0){
+                    //seguir
                     if(op==1){
                         s.listarUsuarios();
-                        //op=this.menu2();
+                        String string_seguir=this.lerLinha("Digite o user que deseja seguir: ");
+                        Usuario seguir_user=s.buscarUsuario(string_seguir);
+                        if(seguir_user!=null){
+                            logado.seguir(seguir_user);
+                            System.out.println(string_seguir+" seguido(a)!");
+                        }
+                        else{
+                            System.out.println("erro: usuario invalido");
+                        }
+                        op=this.menu2();
+
                     }
                     if(op==2){
-                        System.out.println();
+                        System.out.println("*FAZER POSTAGEM*");
+                        cadPostagem(s,logado);
                         op=this.menu2();
                     }
                     if(op==3){
-                        System.out.println();
+                        System.out.println("*FEED*");
+                        logado.feed();
                         op=this.menu2();
                     }
                 }

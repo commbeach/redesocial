@@ -11,4 +11,7 @@ public class Empresa extends Usuario{
     System.out.println("empresa cadastrada");
     
   }
+  public String toString(){
+    return this.nome+" ("+this.login+" - "+this.cnpj+")";
+  }
 }
