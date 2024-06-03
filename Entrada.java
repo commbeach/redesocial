@@ -141,12 +141,12 @@ public class Entrada {
     }
 
     public void cadPostagem(Sistema s,Usuario u){
-        String senha=lerLinha("Digite sua senha: ");
         String imagem=lerLinha("Digite arquivo da foto: ");
         String legenda=lerLinha("Digite legenda: ");
         int dia=lerInteiro("Digite dia de hoje: ");
         int mes=lerInteiro("Digite mes de hoje: ");
         int ano=lerInteiro("Digite ano de hoje: ");
+        String senha=lerLinha("Digite sua senha: ");
 
         Data hoje=new Data(dia,mes,ano);
 

@@ -1,3 +1,3 @@
 public class Area{
-  String descricao;
+  private String descricao;
 }

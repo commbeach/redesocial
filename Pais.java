@@ -1,4 +1,4 @@
 public class Pais{
-  String nome;
-  String sigla;
+  private String nome;
+  private String sigla;
 }

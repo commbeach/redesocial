@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Sistema{
-  ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
-  ArrayList<Empresa> empresas = new ArrayList<Empresa>();
+  private ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
+  private ArrayList<Empresa> empresas = new ArrayList<Empresa>();
 
   public Usuario buscarUsuario(String login){
     for(Pessoa p : pessoas){
@@ -28,17 +28,11 @@ public class Sistema{
 
   public void listarUsuarios(){
     for(Pessoa p : pessoas){
-      System.out.println("*************");
-      System.out.println(p.login);
-      System.out.println(p.nome);
-      System.out.println(p.bio);
+      System.out.println(p.toString());
     }
 
     for(Empresa e : empresas){
-      System.out.println("*************");
-      System.out.println(e.login);
-      System.out.println(e.nome);
-      System.out.println(e.area);
+      System.out.println(e.toString());
     }
   }
   

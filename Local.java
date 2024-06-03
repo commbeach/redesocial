@@ -1,5 +1,5 @@
 public class Local {
-    String cidade;
-    Estado estado;
+    private String cidade;
+    private Estado estado;
     
 }

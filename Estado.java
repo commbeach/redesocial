@@ -1,5 +1,5 @@
 public class Estado{
-  String nome;
-  String sigla;
-  Pais pais;
+  private String nome;
+  private String sigla;
+  private Pais pais;
 }

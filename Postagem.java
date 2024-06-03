@@ -1,7 +1,7 @@
 public class Postagem{
-  String foto;
-  String legenda;
-  Data d;
+  private String foto;
+  private String legenda;
+  private Data d;
 
 public Postagem(String foto,String legenda,Data d){
   this.foto=foto;
@@ -10,7 +10,6 @@ public Postagem(String foto,String legenda,Data d){
 }
 
 public void mostrarDados(){
-  System.out.println("***********");
   System.out.println(this.foto);
   System.out.println(this.legenda);
   System.out.println(this.d.toString());

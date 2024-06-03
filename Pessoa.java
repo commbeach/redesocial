@@ -1,8 +1,8 @@
 public class Pessoa extends Usuario{
-  String cpf;
-  Data nasc;
-  String bio;
-  Usuario[] interesses;
+  private String cpf;
+  private Data nasc;
+  private String bio;
+  private Usuario[] interesses;
 
   public Pessoa(String l,String n,String s, String cpf, int dia, int mes, int ano){
     super(l,n,s);

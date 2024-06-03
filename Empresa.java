@@ -1,9 +1,9 @@
 public class Empresa extends Usuario{
-  String cnpj;
-  String endereco;
-  String site;
-  String descricao;
-  Area area;
+  private String cnpj;
+  private String endereco;
+  private String site;
+  private String descricao;
+  private Area area;
 
   public Empresa(String l,String n,String s,String c){
     super(l,n,s);

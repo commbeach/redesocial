@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 public class Usuario{
-  String login;
-  String nome;
-  String senha;
-  Local cidade;
-  ArrayList<Postagem> posts = new ArrayList<Postagem>();
-  ArrayList<Usuario> seguindo = new ArrayList<Usuario>();
-  ArrayList<Usuario> seguidores = new ArrayList<Usuario>();
-  ArrayList<Pessoa> interessados = new ArrayList<Pessoa>();
+  protected String login;
+  protected String nome;
+  protected String senha;
+  protected Local cidade;
+  protected ArrayList<Postagem> posts = new ArrayList<Postagem>();
+  protected ArrayList<Usuario> seguindo = new ArrayList<Usuario>();
+  protected ArrayList<Usuario> seguidores = new ArrayList<Usuario>();
+  protected ArrayList<Pessoa> interessados = new ArrayList<Pessoa>();
 
   public Usuario(String l,String n,String s){
     System.out.println("novo usuario criado");
@@ -48,11 +48,15 @@ public class Usuario{
 
   public void mostrarPosts(){
     for(Postagem p : this.posts){
+      System.out.println(this.toString());
       p.mostrarDados();
+      System.out.println("*");
     }
   }
 
   public void feed(){
+    System.out.println("Feed de "+this.login);
+    System.out.println("*");
     for(Usuario u : seguindo){
       u.mostrarPosts();
     }
