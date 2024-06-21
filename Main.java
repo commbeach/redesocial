@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Entrada io = new Entrada();
         Sistema s = new Sistema();
-
+        io.CadastrarSistema(s);
         int op = io.menu1();
 
         while (op != 0) {

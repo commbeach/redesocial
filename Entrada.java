@@ -1,8 +1,15 @@
 //package Fotos;
 
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Entrada {
     /**
@@ -22,7 +29,7 @@ public class Entrada {
             // Se houver um arquivo input.txt na pasta corrente, o Scanner vai ler dele.
             this.input = new Scanner(new FileInputStream("input.txt"));
             // NAO ALTERE A LOCALICAÇÃO DO ARQUIVO!!
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             // Caso contrário, vai ler do teclado.
             this.input = new Scanner(System.in);
         }
@@ -34,6 +41,77 @@ public class Entrada {
      * @param msg: Mensagem que será exibida ao usuário
      * @return Uma String contendo a linha que foi lida
      */
+    public void CadastrarSistema(Sistema s){
+        try{  
+        FileReader f = new FileReader("dados.txt");
+        BufferedReader buff = new BufferedReader(f);
+        String linha = buff.readLine();
+        while(!linha.equals("F")){
+            //se for pessoa:
+            if(linha.equals("P")){
+                String login=buff.readLine();
+                String nome=buff.readLine();
+                String senha=buff.readLine();
+                String cpf=buff.readLine();
+                int dia = Integer.parseInt(buff.readLine());
+                int mes = Integer.parseInt(buff.readLine());
+                int ano = Integer.parseInt(buff.readLine());
+                //cadastra no sistema
+                Pessoa p=new Pessoa(login,nome,senha,cpf,dia,mes,ano);
+                s.novaPessoa(p);
+            }
+            //se for empresa:
+            if(linha.equals("E")){
+                String login=buff.readLine();
+                String nome=buff.readLine();
+                String senha=buff.readLine();
+                String cnpj=buff.readLine();
+                //cadastra no sistema
+                Empresa e=new Empresa(login,nome,senha,cnpj);
+                s.novaEmpresa(e);
+            }
+            //opcoes de seguir
+            if(linha.equals("S")){
+                String login_seguir=buff.readLine();
+                String login_seguidor=buff.readLine();
+
+                Usuario logado=s.buscarUsuario(login_seguir);
+                Usuario vai_seguir=s.buscarUsuario(login_seguidor);
+                logado.seguir(vai_seguir);
+            }
+            linha=buff.readLine();
+        }
+        
+        buff.close();
+
+        //jeito que eu encontrei de tirar o F no final: 
+        ArrayList<String> dados = new ArrayList<String>();
+
+        FileReader new_f = new FileReader("dados.txt");
+        BufferedReader new_buff = new BufferedReader(new_f);
+        String new_linha = new_buff.readLine();
+
+        while(!new_linha.equals("F")){
+            dados.add(new_linha);
+            new_linha=new_buff.readLine();
+        }
+
+        new_buff.close();
+
+        FileWriter file = new FileWriter("dados.txt");
+        BufferedWriter write = new BufferedWriter(file);
+        for(String d : dados){
+            write.write(d+"\n");
+          }
+        write.close();
+
+        }catch(IOException e){
+            System.out.println("erro");
+        }
+    }
+
+  
+
     private String lerLinha(String msg) {
         // Imprime uma mensagem ao usuário, lê uma e retorna esta linha
         System.out.print(msg);
@@ -76,6 +154,18 @@ public class Entrada {
             op = this.lerInteiro(msg);
         }
 
+        //adiciona F quando fecha
+        if(op==0){
+            FileWriter file;
+            try {
+                file = new FileWriter("dados.txt",true);
+                BufferedWriter buff = new BufferedWriter(file);
+                buff.write("F");
+                buff.close();
+            }catch (IOException e) {
+                System.out.println("erro");
+            }
+        }
         return op;
     }
 
@@ -107,6 +197,8 @@ public class Entrada {
      * @param s: Um objeto da classe Sistema
      */
     public void cadPessoa(Sistema s) {
+        //cria e salva pessoa em dados.txt
+
         String login = this.lerLinha("Escolha um login: ");
 
         while (s.buscarUsuario(login) != null) {
@@ -122,6 +214,27 @@ public class Entrada {
 
         Pessoa p = new Pessoa(login, nome, senha, cpf, dia, mes, ano);
         s.novaPessoa(p);
+
+        //salva pessoa no dados.txt
+
+        try {
+            FileWriter file = new FileWriter("dados.txt",true);
+            BufferedWriter buff = new BufferedWriter(file);
+            buff.write("P\n");
+            buff.write(login+"\n");
+            buff.write(nome+"\n");
+            buff.write(senha+"\n");
+            buff.write(cpf+"\n");
+            buff.write(dia+"\n");
+            buff.write(mes+"\n");
+            buff.write(ano+"\n");
+            buff.close();
+
+            
+        } catch (IOException e) {
+            System.out.println("erro");
+        }
+
     }
 
     public void cadEmpresa(Sistema s){
@@ -137,6 +250,23 @@ public class Entrada {
 
         Empresa e = new Empresa(login,nome,senha,cnpj);
         s.novaEmpresa(e);
+
+        //salva empresa no dados.txt
+
+        try {
+            FileWriter file = new FileWriter("dados.txt",true);
+            BufferedWriter buff = new BufferedWriter(file);
+            buff.write("E\n");
+            buff.write(login+"\n");
+            buff.write(nome+"\n");
+            buff.write(senha+"\n");
+            buff.write(cnpj+"\n");
+            buff.close();
+
+            
+        } catch (IOException f) {
+            System.out.println("erro");
+        }
 
     }
 
@@ -170,6 +300,19 @@ public class Entrada {
                         if(seguir_user!=null){
                             logado.seguir(seguir_user);
                             System.out.println(string_seguir+" seguido(a)!");
+                            //cadastrar seguimento
+                            try {
+                                FileWriter file = new FileWriter("dados.txt",true);
+                                BufferedWriter buff = new BufferedWriter(file);
+                                buff.write("S\n");
+                                buff.write(logado.login+"\n");
+                                buff.write(string_seguir+"\n");
+                                buff.close();
+                    
+                                
+                            } catch (IOException f) {
+                                System.out.println("erro");
+                            }
                         }
                         else{
                             System.out.println("erro: usuario invalido");
