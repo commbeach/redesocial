@@ -12,7 +12,7 @@ public abstract class Usuario{
   protected ArrayList<Pessoa> interessados = new ArrayList<Pessoa>();
 
   public Usuario(String l,String n,String s){
-    System.out.println("novo usuario criado");
+    //System.out.println("novo usuario criado");
     this.login=l;
     this.nome=n;
     this.senha=s;

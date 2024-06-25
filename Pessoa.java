@@ -9,7 +9,7 @@ public class Pessoa extends Usuario{
     Data datanasc=new Data(dia,mes,ano);
     this.cpf=cpf;
     this.nasc=datanasc;
-    System.out.println("nova pessoa criada");
+    //System.out.println("nova pessoa criada");
   }
 
   public String toString(){
