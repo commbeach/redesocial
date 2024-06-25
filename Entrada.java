@@ -25,14 +25,14 @@ public class Entrada {
      * Se o arquivo não existir, define que o Scanner vai ler da entrada padrão (teclado)
      */
     public Entrada() {
-        try {
+        //try {
             // Se houver um arquivo input.txt na pasta corrente, o Scanner vai ler dele.
-            this.input = new Scanner(new FileInputStream("input.txt"));
+            //this.input = new Scanner(new FileInputStream("input.txt"));
             // NAO ALTERE A LOCALICAÇÃO DO ARQUIVO!!
-        } catch (IOException e) {
+        //} catch (IOException e) {
             // Caso contrário, vai ler do teclado.
             this.input = new Scanner(System.in);
-        }
+        //}
     }
 
     /**
@@ -208,32 +208,39 @@ public class Entrada {
         String nome = this.lerLinha("Digite seu nome: ");
         String senha = this.lerLinha("Digite sua senha: ");
         String cpf = this.lerLinha("Digite seu cpf: ");
-        int dia = this.lerInteiro("Digite seu dia de nascimento: ");
-        int mes = this.lerInteiro("Digite seu mes de nascimento: ");
-        int ano = this.lerInteiro("Digite seu ano de nascimento: ");
+        try{
+            int dia = this.lerInteiro("Digite seu dia de nascimento: ");
+            int mes = this.lerInteiro("Digite seu mes de nascimento: ");
+            int ano = this.lerInteiro("Digite seu ano de nascimento: ");
+    
+            Pessoa p = new Pessoa(login, nome, senha, cpf, dia, mes, ano);
+            s.novaPessoa(p);
 
-        Pessoa p = new Pessoa(login, nome, senha, cpf, dia, mes, ano);
-        s.novaPessoa(p);
+             //salva pessoa no dados.txt
+            try {
+                FileWriter file = new FileWriter("dados.txt",true);
+                BufferedWriter buff = new BufferedWriter(file);
+                buff.write("P\n");
+                buff.write(login+"\n");
+                buff.write(nome+"\n");
+                buff.write(senha+"\n");
+                buff.write(cpf+"\n");
+                buff.write(dia+"\n");
+                buff.write(mes+"\n");
+                buff.write(ano+"\n");
+                buff.close();
+    
+                
+            } catch (IOException e) {
+                System.out.println("erro");
+            }
 
-        //salva pessoa no dados.txt
-
-        try {
-            FileWriter file = new FileWriter("dados.txt",true);
-            BufferedWriter buff = new BufferedWriter(file);
-            buff.write("P\n");
-            buff.write(login+"\n");
-            buff.write(nome+"\n");
-            buff.write(senha+"\n");
-            buff.write(cpf+"\n");
-            buff.write(dia+"\n");
-            buff.write(mes+"\n");
-            buff.write(ano+"\n");
-            buff.close();
-
-            
-        } catch (IOException e) {
-            System.out.println("erro");
+        }catch(NumberFormatException n){
+            System.out.println("ERRO! Digite um numero!");
         }
+       
+
+
 
     }
 
@@ -273,14 +280,20 @@ public class Entrada {
     public void cadPostagem(Sistema s,Usuario u){
         String imagem=lerLinha("Digite arquivo da foto: ");
         String legenda=lerLinha("Digite legenda: ");
-        int dia=lerInteiro("Digite dia de hoje: ");
-        int mes=lerInteiro("Digite mes de hoje: ");
-        int ano=lerInteiro("Digite ano de hoje: ");
-        String senha=lerLinha("Digite sua senha: ");
+        try{
+            int dia=lerInteiro("Digite dia de hoje: ");
+            int mes=lerInteiro("Digite mes de hoje: ");
+            int ano=lerInteiro("Digite ano de hoje: ");
+            String senha=lerLinha("Digite sua senha: ");
 
-        Data hoje=new Data(dia,mes,ano);
+            Data hoje=new Data(dia,mes,ano);
+    
+            u.postar(imagem,legenda,hoje,senha);
 
-        u.postar(imagem,legenda,hoje,senha);
+        }catch(NumberFormatException n){
+            System.out.println("ERRO! Digite um numero!");
+        }
+       
     }
 
     public void login(Sistema s){
@@ -294,7 +307,7 @@ public class Entrada {
                 while(op!=0){
                     //seguir
                     if(op==1){
-                        s.listarUsuarios();
+                        s.listar_nao_seguidos(logado);
                         String string_seguir=this.lerLinha("Digite o user que deseja seguir: ");
                         Usuario seguir_user=s.buscarUsuario(string_seguir);
                         if(seguir_user!=null){

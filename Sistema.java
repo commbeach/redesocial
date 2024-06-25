@@ -35,5 +35,31 @@ public class Sistema{
       System.out.println(e.toString());
     }
   }
+
+  public ArrayList<Usuario> todes(){
+    ArrayList<Usuario> todes=new ArrayList<Usuario>();
+    for(Pessoa p: pessoas){
+      todes.add(p);
+    }
+    for(Empresa e:empresas){
+      todes.add(e);
+    }
+    return todes;
+  }
+
+  public void listar_nao_seguidos(Usuario u){
+    ArrayList<Usuario> todes=this.todes();
+    ArrayList<Usuario> seg=u.seguindo();
+    for(Usuario t: todes){
+      boolean nsegue=true;
+      for(Usuario s: seg){
+        if(t.equals(s)||t.equals(u)){
+          nsegue=false;
+          break;
+        }
+      }
+      if(nsegue)System.out.println(t.toString());
+    }
+  }
   
 }
